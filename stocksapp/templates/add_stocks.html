@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Stocks{% endblock %}
+
+{% block content %}
+<br>
+<br>
+<br>
+<div class="container h-100">
+   <div class="row h-100 justify-content-center align-items-center">
+       <div class="col-10 col-md-8 col-lg-6">
+            <!-- Form -->
+            <form class="form-example" action="{% url 'add_stocks' %}" method="POST">
+              {% csrf_token %}
+                <!-- Input fields -->
+                <div class="form-group">
+                    <input type="text" class="form-control username" id="username" placeholder="Ticker Name" name="ticker">
+                </div>
+                <div class="text-center">
+                  <button type="submit" class="btn btn-primary btn-customized">Add To Stocks</button>
+              </div>
+                <!-- End input fields -->
+            </form>
+            <!-- Form end -->
+        </div>
+    </div>
+</div>
+<br>
+<br>
+	{% if ticker %}
+    {% if output == "Error" %}
+      <h2><center>There is an error occured. Please try again after sometime. Thank you for your patience.</center></h2>
+    {% else %}
+    <table class="table table-borderless table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Company Name</th>
+          <th scope="col">Stock Price</th>
+          <th scope="col">Price to Earning Ratio</th>
+          <th scope="col">Week 52 High</th>
+          <th scope="col">Week 52 Low</th>
+          <th scope="col">Year to Date Change</th>
+          <th scope="col">Market Capitalization</th>
+        </tr>
+      </thead>
+        <tbody>
+        {% for list_item in output %}
+          <tr>
+            <th scope="row">{{ list_item.companyName }}</th>
+            <td>${{ list_item.latestPrice }}</td>
+            <td>{{ list_item.peRatio }}</td>
+            <td>${{ list_item.week52High }}</td>
+            <td>${{ list_item.week52Low }}</td>
+            <td>{{ list_item.ytdChange }}%</td>
+            <td>${{ list_item.marketCap }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+    <br>
+    <br>
+    <br>
+
+    {% for items in ticker %}
+      <a style="text-decoration: none; color: black;" href="{% url 'delete' items.id %}" class="btn btn-secondary">Delete {{ items }}</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    {% endfor %}
+  {% else %}
+		<h2><center>There is no stocks found.</center></h2>
+  {% endif %}	
+
+{% endblock %}

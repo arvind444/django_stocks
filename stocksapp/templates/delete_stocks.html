@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete Stocks{% endblock %}
+
+{% block content %}
+<br>
+<br>
+<h2><center>Delete Stocks</center></h2>
+
+<br>
+<br>
+<br>
+
+	{% if ticker %}
+		<table class="table table-borderless table-hover">
+  			<thead>
+    			<tr>
+			      <th scope="col">Ticker Name</th>
+			      <th scope="col">Delete</th>
+			    </tr>
+  			</thead>
+			<tbody>
+				{% for items in ticker %}
+			    <tr>
+			      <th scope="row">{{ items }}</th>
+			      <td><button type="button" class="btn btn-danger"><a style="text-decoration: none; color: black;" href="{% url 'delete' items.id %}">Delete {{ items }}</a></button></td>
+			    </tr>
+			    {% endfor %}
+			</tbody>
+		</table>
+		
+	{% else %}
+		<h2><center>There is no tickers or stocks. Please add some tickers.</center></h2>
+	{% endif %}
+{% endblock %}

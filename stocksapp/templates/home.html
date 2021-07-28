@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block title %}Stocks Home{% endblock %}
+
+{% block content %}
+	<br>
+	<br>
+	{% if api %}
+		{% if api == "Error" %}
+			<h2><center>There is something wrong with your ticker symbols. Please try again.</center></h2>
+		{% else %}
+			<h1><center>{{ api.companyName }}</center></h1> <br> <br>
+
+			<table class="table table-borderless table-hover">
+			 	<thead class="thead-light">
+			    	<tr>
+			      	<th scope="col">Data</th>
+			      	<th scope="col">Value</th>
+			    	</tr>
+			 	</thead>
+			  	<tbody>
+			    	<tr>
+			      	<th scope="row">Primary Exchange</th>
+			      	<td>{{ api.primaryExchange }}</td>
+			    	</tr>
+			    	<tr>
+			      	<th scope="row">Latest Price</th>
+			      	<td>{{ api.latestPrice }}</td>
+			    	</tr>
+			    	<tr>
+			      	<th scope="row">Opening Price</th>
+			      	<td>$ {{ api.open }}</td>
+			    	</tr>
+			    	<tr>
+			      	<th scope="row">Closing Price</th>
+			      	<td>$ {{ api.close }}</td>
+			    	</tr>
+			    	<tr>
+			      	<th scope="row">Change in Price</th>
+			      	<td>$ {{ api.change }}</td>
+			    	</tr>
+			    	<tr>
+			      	<th scope="row">Change in Percent</th>
+			      	<td>{{ api.changePercent }}%</td>
+			    	</tr>
+			    	<tr>
+			      	<th scope="row">Market High Value</th>
+			      	<td>$ {{ api.high }}</td>
+			    	</tr>
+			    	<tr>
+			      	<th scope="row">Market Low Value</th>
+			      	<td>$ {{ api.low }}</td>
+			    	</tr>
+			    	<tr>
+			      	<th scope="row">Previous Closing Price</th>
+			      	<td>$ {{ api.previousClose }}</td>
+			    	</tr>
+			    	<tr>
+			      	<th scope="row">Price to Earning ratio</th>
+			      	<td>{{ api.peRatio }}</td>
+			    	</tr>
+			    	<tr>
+			    	<th scope="row">Market Capitalization</th>
+			    	<td>$ {{ api.marketCap }}</td>
+			    	</tr>
+			    	<tr>
+			    	<th scope="row">Week 52 High</th>
+			    	<td>$ {{ api.week52High }}</td>
+			    	</tr>
+			    	<tr>
+			    	<th scope="row">Week 52 Low</th>
+			    	<td>$ {{ api.week52Low }}</td>
+			    	</tr>
+			    	<tr>
+			    	<th scope="row">Year to Date Change</th>
+			    	<td>{{ api.ytdChange }}% </td>
+			    	</tr>
+				</tbody>
+			</table>
+
+		{% endif %}
+	{% endif %}
+{% endblock %}
